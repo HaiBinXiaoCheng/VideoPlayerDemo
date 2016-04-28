@@ -33,7 +33,7 @@
 - (IBAction)playRemoteVideo:(id)sender {
     // http://baobab.wdjcdn.com/1451897812703c.mp4
     // http://krtv.qiniudn.com/150522nextapp
-    NSURL *videoURL = [NSURL URLWithString:@"http://krtv.qiniudn.com/150522nextapp"];
+    NSURL *videoURL = [NSURL URLWithString:@"http://baobab.wdjcdn.com/1451897812703c.mp4"];
     [self playVideoWithURL:videoURL];
 }
 

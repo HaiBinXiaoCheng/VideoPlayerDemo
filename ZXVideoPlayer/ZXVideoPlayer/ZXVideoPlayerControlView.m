@@ -53,6 +53,8 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         
         // 锁定按钮
         [self.topBar addSubview:self.lockButton];
+        // 缓冲进度条
+        [self.bottomBar insertSubview:self.bufferProgressView belowSubview:self.progressSlider];
         // 快进、快退指示器
         [self addSubview:self.timeIndicatorView];
         // 亮度指示器
@@ -95,6 +97,9 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     
     // 锁定按钮
     self.lockButton.frame = CGRectMake(CGRectGetMinX(self.closeButton.frame) - CGRectGetWidth(self.lockButton.bounds) - 10, CGRectGetMinY(self.closeButton.frame), CGRectGetWidth(self.lockButton.bounds), CGRectGetHeight(self.lockButton.bounds));
+    // 缓冲进度条
+    self.bufferProgressView.bounds = CGRectMake(0, 0, self.progressSlider.bounds.size.width - 7, self.progressSlider.bounds.size.height);
+    self.bufferProgressView.center = CGPointMake(self.progressSlider.center.x + 2, self.progressSlider.center.y);
     // 快进、快退指示器
     self.timeIndicatorView.center = self.indicatorView.center;
     // 亮度指示器
@@ -231,7 +236,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         _progressSlider = [[UISlider alloc] init];
         [_progressSlider setThumbImage:[UIImage imageNamed:@"kr-video-player-point"] forState:UIControlStateNormal];
         [_progressSlider setMinimumTrackTintColor:[UIColor whiteColor]];
-        [_progressSlider setMaximumTrackTintColor:[UIColor lightGrayColor]];
+        [_progressSlider setMaximumTrackTintColor:[[UIColor lightGrayColor] colorWithAlphaComponent:0.4]];
         _progressSlider.value = 0.f;
         _progressSlider.continuous = YES;
     }
@@ -279,6 +284,16 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
         [_lockButton setImage:[UIImage imageNamed:@"zx-video-player-lock"] forState:UIControlStateSelected];
     }
     return _lockButton;
+}
+
+- (UIProgressView *)bufferProgressView
+{
+    if (!_bufferProgressView) {
+        _bufferProgressView = [[UIProgressView alloc] initWithProgressViewStyle:UIProgressViewStyleDefault];
+        _bufferProgressView.progressTintColor = [UIColor colorWithWhite:1 alpha:0.3];
+        _bufferProgressView.trackTintColor = [UIColor clearColor];
+    }
+    return _bufferProgressView;
 }
 
 - (ZXVideoPlayerTimeIndicatorView *)timeIndicatorView

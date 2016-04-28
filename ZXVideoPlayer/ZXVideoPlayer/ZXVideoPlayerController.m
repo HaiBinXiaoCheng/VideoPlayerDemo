@@ -174,8 +174,12 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 {
     double currentTime = floor(self.currentPlaybackTime);
     double totalTime = floor(self.duration);
+    // 更新播放时间
     [self setTimeLabelValues:currentTime totalTime:totalTime];
+    // 更新播放进度
     self.videoControl.progressSlider.value = ceil(currentTime);
+    // 更新缓冲进度
+    self.videoControl.bufferProgressView.progress = self.playableDuration / self.duration;
 }
 
 /// 更新播放时间显示

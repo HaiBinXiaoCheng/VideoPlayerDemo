@@ -27,6 +27,8 @@
 
 /// 屏幕锁定按钮
 @property (nonatomic, strong, readwrite) UIButton *lockButton;
+/// 缓冲进度条
+@property (nonatomic, strong, readwrite) UIProgressView *bufferProgressView;
 /// 快进、快退指示器
 @property (nonatomic, strong, readwrite) ZXVideoPlayerTimeIndicatorView *timeIndicatorView;
 /// 亮度指示器
