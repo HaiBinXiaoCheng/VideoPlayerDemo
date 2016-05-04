@@ -8,9 +8,7 @@
 
 #import "ZXVideoPlayerControlView.h"
 
-/// 在不自定义UISlider高度的情况下, 如果需要调整controlBarHeight，需要自定义bottomBar,
-/// 并在gestureRecognizer:shouldReceiveTouch:中屏蔽掉响应手势
-static const CGFloat kVideoControlBarHeight = 34.0;
+static const CGFloat kVideoControlBarHeight = 40.0;
 static const CGFloat kVideoControlAnimationTimeInterval = 0.3;
 static const CGFloat kVideoControlTimeLabelFontSize = 10.0;
 static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
@@ -89,7 +87,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
     
     self.shrinkScreenButton.frame = self.fullScreenButton.frame;
     
-    self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.playButton.frame), CGRectGetHeight(self.bottomBar.bounds)/2 - CGRectGetHeight(self.progressSlider.bounds)/2, CGRectGetMinX(self.fullScreenButton.frame) - (CGRectGetMaxX(self.playButton.frame) + 6), CGRectGetHeight(self.progressSlider.bounds));
+    self.progressSlider.frame = CGRectMake(CGRectGetMaxX(self.playButton.frame), 0, CGRectGetMinX(self.fullScreenButton.frame) - CGRectGetMaxX(self.playButton.frame), kVideoControlBarHeight);
     
     self.timeLabel.frame = CGRectMake(CGRectGetMidX(self.progressSlider.frame), CGRectGetHeight(self.bottomBar.bounds) - CGRectGetHeight(self.timeLabel.bounds) - 2.0, CGRectGetWidth(self.progressSlider.bounds)/2, CGRectGetHeight(self.timeLabel.bounds));
     
@@ -176,6 +174,7 @@ static const CGFloat kVideoControlBarAutoFadeOutTimeInterval = 5.0;
 {
     if (!_topBar) {
         _topBar = [UIView new];
+        _topBar.accessibilityIdentifier = @"TopBar";
         _topBar.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     }
     return _topBar;

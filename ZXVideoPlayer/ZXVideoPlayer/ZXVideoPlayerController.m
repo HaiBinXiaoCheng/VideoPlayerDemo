@@ -82,8 +82,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer*)gestureRecognizer shouldReceiveTouch:(UITouch*)touch
 {
-    // UISlider不需要响应手势
-    if([touch.view isKindOfClass:[UISlider class]]) {
+    // UISlider & UIButton & topBar 不需要响应手势
+    if([touch.view isKindOfClass:[UISlider class]] || [touch.view isKindOfClass:[UIButton class]] || [touch.view.accessibilityIdentifier isEqualToString:@"TopBar"]) {
         return NO;
     } else {
         return YES;
@@ -514,8 +514,8 @@ static const CGFloat kVideoPlayerControllerAnimationTimeInterval = 0.3f;
     if (self.isFullscreenMode && self.lastDeviceOrientation == orientation) { // (全屏模式)同一方向
         return;
     } else if (self.isFullscreenMode && self.lastDeviceOrientation != orientation) { // (全屏模式)不同方向(相当于需要旋转π)
-         // Mtd-1:
-//        [self.view setTransform:CGAffineTransformIdentity];
+        // Mtd-1:
+        //        [self.view setTransform:CGAffineTransformIdentity];
         //Mtd-2: 没用completion 🐶
         [UIView animateWithDuration:0.45 animations:^{
             [self.view setTransform:CGAffineTransformIdentity];
